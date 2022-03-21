@@ -4,7 +4,9 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aurora.meta.crawler.manager.OssManager;
 import com.aurora.meta.crawler.manager.impl.OssManagerImpl;
+import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -12,7 +14,9 @@ import org.springframework.context.annotation.Scope;
 /**
  * @author irony
  */
-@ConditionalOnProperty(prefix = "aliyun.meta")
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "aliyun.meta")
 public class AliyunConfig {
     /**
      * 阿里云 accessKey

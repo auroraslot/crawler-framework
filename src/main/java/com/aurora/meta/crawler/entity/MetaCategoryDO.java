@@ -45,5 +45,15 @@ public class MetaCategoryDO implements Serializable {
      */
     private Integer categoryLevel;
 
+    /**
+     * 溯源站点
+     */
+    private String traceSource;
+
+    /**
+     * 溯源站点名称
+     */
+    private String traceSourceTitle;
+
     private static final long serialVersionUID = 1L;
 }

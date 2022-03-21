@@ -136,11 +136,11 @@ public abstract class AbstractBaseCrawler {
         return CrawlerUtil.getJSONArray(httpDownloader.downloadWithVrify(pageRequest, maxRetry, downloadVerifier));
     }
 
-    public abstract void onStart() throws Exception;
+    public abstract void onStart();
 
-    public abstract void onStop() throws Exception;
+    public abstract void onStop();
 
-    public void onDestory() throws Exception {
+    public void onDestory() {
         if (threadPool != null) {
             threadPool.shutdown();
         }

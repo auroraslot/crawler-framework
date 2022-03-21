@@ -1,3 +1,7 @@
+drop database if exists aurora_meta;
+create database aurora_meta;
+use aurora_meta;
+
 drop table if exists meta_sentence_info;
 create table meta_sentence_info
 (
@@ -46,7 +50,9 @@ create table meta_tag
 (
   id           int primary key auto_increment comment '主键',
   tag_name     varchar(30) not null comment '标签名',
-  tag_classify tinyint     not null default 0 comment '标签分类：0-其他分类标签；1-感觉分类标签；2-长度分类标签'
+  tag_classify tinyint     not null default 0 comment '标签分类：0-其他分类标签；1-感觉分类标签；2-长度分类标签',
+  trace_source varchar(128) not null default '' comment '溯源站点',
+  trace_source_title varchar(60) comment '溯源站点名称'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='标签元数据表';
 
@@ -67,7 +73,9 @@ create table meta_category
   category_type  tinyint     not null comment '品类类型：0-spu品类；1-作者品类',
   parent_id      int                  default 0 comment '父品类ID',
   last_category  tinyint     not null default 0 comment '是否是叶子类目：0-不是；1-是',
-  category_level tinyint     not null comment '品类级别'
+  category_level tinyint     not null comment '品类级别',
+  trace_source varchar(128) not null default '' comment '溯源站点',
+  trace_source_title varchar(60) comment '溯源站点名称'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='品类元数据表';
 
