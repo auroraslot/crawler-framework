@@ -45,5 +45,20 @@ public class MetaAuthorDO implements Serializable {
      */
     private String avatar;
 
+    /**
+     * bucketName
+     */
+    private String bucketName;
+
+    /**
+     * 文件名
+     */
+    private String fileName;
+
+    /**
+     * OSS存储路径
+     */
+    private String path;
+
     private static final long serialVersionUID = 1L;
 }

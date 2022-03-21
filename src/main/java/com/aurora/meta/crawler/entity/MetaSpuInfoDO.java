@@ -35,7 +35,25 @@ public class MetaSpuInfoDO implements Serializable {
      */
     private Integer authorId;
 
+    /**
+     * 主图URL
+     */
     private String avatar;
+
+    /**
+     * bucketName
+     */
+    private String bucketName;
+
+    /**
+     * 文件名
+     */
+    private String fileName;
+
+    /**
+     * OSS存储路径
+     */
+    private String path;
 
     private static final long serialVersionUID = 1L;
 }

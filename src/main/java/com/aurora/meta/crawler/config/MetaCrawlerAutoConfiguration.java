@@ -1,8 +1,9 @@
 package com.aurora.meta.crawler.config;
 
-import com.aurora.meta.crawler.core.RunningMocker;
 import com.aurora.meta.crawler.mapper.*;
 import com.aurora.meta.crawler.repository.MetaGrowthRepository;
+import lombok.Data;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,7 +12,9 @@ import javax.annotation.Resource;
 /**
  * @author irony
  */
+@Data
 @Configuration
+@EnableConfigurationProperties({AliyunConfig.class, MetaCrawlerProperties.class})
 public class MetaCrawlerAutoConfiguration {
 
     @Resource
@@ -54,5 +57,4 @@ public class MetaCrawlerAutoConfiguration {
                 metaTagSentenceRelationMapper);
         return metaGrowthRepository;
     }
-
 }
