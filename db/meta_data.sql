@@ -25,7 +25,10 @@ create table meta_spu_info
   spu_name    varchar(60)  not null comment 'spu名',
   category_id int          not null comment '所属品类',
   author_id   int comment '所属作者',
-  avatar      varchar(255) not null default '' '主图url'
+  avatar      varchar(255)  default '' comment '主图url',
+  bucket_name varchar(128) not null default '' comment 'oss bucket',
+  file_name varchar(255) not null default '' comment 'fileName',
+  path varchar(255) not null default '' comment 'path'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='spu信息元数据表';
 
@@ -76,7 +79,10 @@ create table meta_author
   category_id int          not null comment '品类ID',
   nationality varchar(60)  not null default '中国' comment '国籍',
   era         varchar(30)  not null default '' comment '年代',
-  avatar      varchar(255) not null default '' comment '主图URL'
+  avatar      varchar(255) not null default '' comment '主图URL',
+  bucket_name varchar(128) not null default '' comment 'oss bucket',
+  file_name varchar(255) not null default '' comment 'fileName',
+  path varchar(255) not null default '' comment 'path'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='作者元数据表';
 

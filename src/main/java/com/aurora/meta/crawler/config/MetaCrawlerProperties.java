@@ -1,13 +1,13 @@
 package com.aurora.meta.crawler.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * @author irony
  */
-@Component
+@Data
 @ConfigurationProperties(prefix = "meta.crawler")
 public class MetaCrawlerProperties {
     private String proxyServer;
