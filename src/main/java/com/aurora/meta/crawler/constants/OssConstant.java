@@ -3,7 +3,7 @@ package com.aurora.meta.crawler.constants;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
- * @author zhonghuashishan
+ * @author irony
  */
 public class OssConstant {
     /**

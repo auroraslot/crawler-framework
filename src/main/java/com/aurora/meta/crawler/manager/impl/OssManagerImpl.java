@@ -11,7 +11,6 @@ import com.aurora.meta.crawler.manager.OssManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +22,7 @@ import java.util.*;
 import static com.aurora.meta.crawler.constants.OssConstant.ONE_HUNDRED_YEARS;
 
 /**
- * @author zhonghuashishan
+ * @author irony
  */
 @Slf4j
 @AllArgsConstructor

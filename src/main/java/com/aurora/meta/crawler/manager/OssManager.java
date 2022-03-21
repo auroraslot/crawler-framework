@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 /**
- * @author zhonghuashishan
+ * @author irony
  */
 public interface OssManager {
     /**

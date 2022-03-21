@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author zhonghuashishan
+ * @author irony
  */
 public enum OssPathEnum {
 

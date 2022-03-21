@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 /**
- * @author zhonghuashishan
+ * @author irony
  */
 @ConditionalOnProperty(prefix = "aliyun.meta")
 public class AliyunConfig {

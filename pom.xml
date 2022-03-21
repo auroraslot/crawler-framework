@@ -5,11 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aurora</groupId>
-<<<<<<< HEAD
     <artifactId>crawler-framework-starter-meta</artifactId>
-=======
-    <artifactId>crawler-framework</artifactId>
->>>>>>> 5fa757394fea4f8ed29692ac021559b9b923d675
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -105,7 +101,6 @@
             <version>1.13.1</version>
         </dependency>
 
-<<<<<<< HEAD
         <!--      阿里云OSS      -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
@@ -117,12 +112,6 @@
 
     <build>
         <!--<finalName>${project.name}</finalName>
-=======
-    </dependencies>
-
-    <build>
-        <finalName>${project.name}</finalName>
->>>>>>> 5fa757394fea4f8ed29692ac021559b9b923d675
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -141,11 +130,7 @@
                     </executions>
                 </plugin>
             </plugins>
-<<<<<<< HEAD
         </pluginManagement>-->
-=======
-        </pluginManagement>
->>>>>>> 5fa757394fea4f8ed29692ac021559b9b923d675
         <plugins>
             <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
