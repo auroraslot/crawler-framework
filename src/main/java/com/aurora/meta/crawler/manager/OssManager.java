@@ -3,7 +3,7 @@ package com.aurora.meta.crawler.manager;
 import com.aurora.meta.crawler.enums.OssPathEnum;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * @author irony
@@ -20,7 +20,7 @@ public interface OssManager {
      * @return 文件下载地址
      * @throws Exception
      */
-    String uploadFile(String bucketName, FileInputStream fileInputStream, String path, String fileName);
+    String uploadFile(String bucketName, InputStream fileInputStream, String path, String fileName);
 
     /**
      * 上传文件
@@ -32,8 +32,19 @@ public interface OssManager {
      * @return 文件下载地址
      * @throws Exception
      */
-    @Deprecated
-    String uploadFile(FileInputStream fileInputStream, String path, String fileName);
+    String uploadFile(InputStream fileInputStream, String path, String fileName);
+
+    /**
+     * 上传文件
+     * 返回的是文件下载地址
+     *
+     * @param originUrl       源URL
+     * @param path            目录
+     * @param fileName        文件名字
+     * @return 文件下载地址
+     * @throws Exception
+     */
+    String uploadFile(String originUrl, String path, String fileName);
 
     /**
      * 上传文件，分片上传

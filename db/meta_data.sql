@@ -6,10 +6,10 @@ drop table if exists meta_sentence_info;
 create table meta_sentence_info
 (
   id             bigint primary key auto_increment comment '主键',
-  spu_id         bigint  not null comment 'spuID',
-  author_id      int     not null comment '作者ID',
-  like_number    tinyint not null default 0 comment '喜欢数量',
-  comment_number tinyint not null default 0 comment '评论数量'
+  spu_id         bigint  comment 'spuID',
+  author_id      int     comment '作者ID',
+  like_number    int not null default 0 comment '喜欢数量',
+  comment_number int not null default 0 comment '评论数量'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='句子信息元数据表';
 
@@ -27,7 +27,7 @@ create table meta_spu_info
 (
   id          bigint primary key auto_increment comment '主键',
   spu_name    varchar(60)  not null comment 'spu名',
-  category_id int          not null comment '所属品类',
+  category_id int comment '所属品类',
   author_id   int comment '所属作者',
   avatar      varchar(255)  default '' comment '主图url',
   bucket_name varchar(128) not null default '' comment 'oss bucket',

@@ -11,14 +11,14 @@ import com.aurora.meta.crawler.manager.OssManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static com.aurora.meta.crawler.constants.OssConstant.META_DEFAULT_BUCKET_NAME;
 import static com.aurora.meta.crawler.constants.OssConstant.ONE_HUNDRED_YEARS;
 
 /**
@@ -35,7 +35,7 @@ public class OssManagerImpl implements OssManager {
 
     private String callbackUrl;
 
-    private OSS ossClient;
+    private ApplicationContext context;
 
     /**
      * 上传文件
@@ -48,8 +48,9 @@ public class OssManagerImpl implements OssManager {
      * @return 文件下载地址
      */
     @Override
-    public String uploadFile(String bucketName, FileInputStream fileInputStream, String path, String fileName) {
+    public String uploadFile(String bucketName, InputStream fileInputStream, String path, String fileName) {
         try {
+            OSS ossClient = context.getBean(OSS.class);
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentDisposition("attachment; filename=\"" + fileName + "\"");
             ossClient.putObject(bucketName, path + fileName, fileInputStream, metadata);
@@ -71,7 +72,29 @@ public class OssManagerImpl implements OssManager {
      * @return 文件下载地址
      */
     @Override
-    public String uploadFile(FileInputStream fileInputStream, String path, String fileName) {
+    public String uploadFile(InputStream fileInputStream, String path, String fileName) {
+        return uploadFile(META_DEFAULT_BUCKET_NAME, fileInputStream, path, fileName);
+    }
+
+    /**
+     * 上传文件
+     * 返回的是文件下载地址
+     *
+     * @param originUrl 源URL
+     * @param path      目录
+     * @param fileName  文件名字
+     * @return 文件下载地址
+     */
+    @Override
+    public String uploadFile(String originUrl, String path, String fileName) {
+        try {
+            URL url = new URL(originUrl);
+            URLConnection con = url.openConnection();
+            InputStream fileInputStream = con.getInputStream();
+            return uploadFile(fileInputStream, path, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -86,6 +109,7 @@ public class OssManagerImpl implements OssManager {
      */
     @Override
     public String uploadFile(String bucketName, String ossObjectName, File file) throws Exception {
+        OSS ossClient = context.getBean(OSS.class);
         InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, ossObjectName);
         // 如果需要在初始化分片时设置文件存储类型，请参考以下示例代码。
         // ObjectMetadata metadata = new ObjectMetadata();
@@ -156,7 +180,7 @@ public class OssManagerImpl implements OssManager {
         try {
             Date expiration = new Date(new Date().getTime() + expirationTime);
             // 生成以GET方法访问的签名URL，访客可以直接通过浏览器访问相关内容。
-
+            OSS ossClient = context.getBean(OSS.class);
             URL url = ossClient.generatePresignedUrl(bucketName, fileName, expiration);
             ossClient.shutdown();
             return url.toString();
@@ -209,6 +233,7 @@ public class OssManagerImpl implements OssManager {
     @Override
     public String authorizeUpload(OssPathEnum ossPathEnum, String bucketName) {
         try {
+            OSS ossClient = context.getBean(OSS.class);
             String ossHost = "http://" + bucketName + "." + endpoint;
             long expireTime = 30;
             long expireEndTime = System.currentTimeMillis() + expireTime * 1000;

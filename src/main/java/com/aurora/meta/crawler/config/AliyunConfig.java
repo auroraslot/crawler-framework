@@ -5,8 +5,8 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aurora.meta.crawler.manager.OssManager;
 import com.aurora.meta.crawler.manager.impl.OssManagerImpl;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -51,12 +51,11 @@ public class AliyunConfig {
 
     /**
      * OSS资源管理器
-     * @param initOssClient
      * @return
      */
     @Bean
-    public OssManager ossManager(OSS initOssClient) {
-        OssManager ossManager = new OssManagerImpl(endpoint, accessKeyId, callbackUrl, initOssClient);
+    public OssManager ossManager(ApplicationContext context) {
+        OssManager ossManager = new OssManagerImpl(endpoint, accessKeyId, callbackUrl, context);
         return ossManager;
     }
 }
