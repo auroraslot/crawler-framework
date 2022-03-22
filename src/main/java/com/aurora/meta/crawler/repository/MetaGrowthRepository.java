@@ -2,13 +2,9 @@ package com.aurora.meta.crawler.repository;
 
 import com.aurora.meta.crawler.entity.*;
 import com.aurora.meta.crawler.mapper.*;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
 
 /**
  * @author irony
