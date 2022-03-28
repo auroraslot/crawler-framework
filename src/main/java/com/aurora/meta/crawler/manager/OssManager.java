@@ -110,4 +110,6 @@ public interface OssManager {
      */
     @Deprecated
     String authorizeUpload(OssPathEnum ossPathEnum);
+
+    void download(String ossObjectName, String localPath);
 }

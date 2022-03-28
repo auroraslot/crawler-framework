@@ -283,4 +283,16 @@ public class OssManagerImpl implements OssManager {
         return null;
     }
 
+    @Override
+    public void download(String ossObjectName, String localPath) {
+        OSS ossClient = context.getBean(OSS.class);
+        try {
+            ossClient.getObject(new GetObjectRequest(META_DEFAULT_BUCKET_NAME, ossObjectName), new File(localPath));
+        } catch (OSSException | ClientException oe) {
+            log.error("下载报错, {}", oe);
+        } finally {
+            ossClient.shutdown();
+        }
+    }
+
 }

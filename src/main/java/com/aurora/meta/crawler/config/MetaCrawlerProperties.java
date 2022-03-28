@@ -14,6 +14,10 @@ public class MetaCrawlerProperties {
 
     private int proxyPort;
 
+    private String username;
+
+    private String password;
+
     private int threadPoolNumbers = 100;
 
     public String getProxyServer() {

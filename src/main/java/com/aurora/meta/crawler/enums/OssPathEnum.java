@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public enum OssPathEnum {
 
-    META_SPU_PATH(1, "spuPath", "spu图片OSS存放地址"),
+    META_SPU_PATH(1, "spuAvatar/", "spu图片OSS存放地址"),
 
-    META_AUTHOR_PATH(2, "metaAuthorPath", "作者图片OSS存放地址");
+    META_AUTHOR_PATH(2, "authorAvatar/", "作者图片OSS存放地址");
 
     private Integer code;
     private String path;
