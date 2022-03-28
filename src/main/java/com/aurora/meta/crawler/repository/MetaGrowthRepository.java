@@ -14,6 +14,7 @@ import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -237,10 +238,7 @@ public class MetaGrowthRepository {
 
     private void putAll(Map<String, String> results, List<MetaSentenceContentDO> batchResult) {
         Map<String, String> maps = batchResult.stream()
-                .collect(Collectors.toMap(meta -> {
-                            String uniqueCode = meta.getSentenceId() + meta.getContent();
-                            return SENTENCE_CONTENT + uniqueCode.hashCode();
-                        },
+                .collect(Collectors.toMap(meta -> SENTENCE_CONTENT + DigestUtils.md5Hex(meta.getContent()),
                     JSON::toJSONString));
         results.putAll(maps);
     }
