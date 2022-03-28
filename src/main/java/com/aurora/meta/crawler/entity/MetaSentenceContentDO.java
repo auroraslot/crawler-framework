@@ -32,7 +32,7 @@ public class MetaSentenceContentDO implements Serializable {
     private Long sentenceId;
 
     /**
-     * 句子内容
+     * meta
      */
     private String content;
 

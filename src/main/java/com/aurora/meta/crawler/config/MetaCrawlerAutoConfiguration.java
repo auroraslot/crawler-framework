@@ -2,10 +2,14 @@ package com.aurora.meta.crawler.config;
 
 import com.aurora.meta.crawler.mapper.*;
 import com.aurora.meta.crawler.repository.MetaGrowthRepository;
+import com.aurora.meta.crawler.repository.cache.MetaGrowthCache;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import javax.annotation.Resource;
 
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
  */
 @Data
 @Configuration
+@Import(value = {RedisConfig.class})
 @EnableConfigurationProperties({AliyunConfig.class, MetaCrawlerProperties.class})
 public class MetaCrawlerAutoConfiguration {
 
@@ -45,7 +50,8 @@ public class MetaCrawlerAutoConfiguration {
     private MetaTagSentenceRelationMapper metaTagSentenceRelationMapper;
 
     @Bean
-    public MetaGrowthRepository metaGrowthRepository() {
+    @ConditionalOnClass(MetaGrowthCache.class)
+    public MetaGrowthRepository metaGrowthRepository(MetaGrowthCache metaGrowthCache) {
         MetaGrowthRepository metaGrowthRepository = new MetaGrowthRepository(metaAuthorMapper,
                 metaAuthorIntroductionMapper,
                 metaCategoryMapper,
@@ -54,7 +60,8 @@ public class MetaCrawlerAutoConfiguration {
                 metaSpuInfoMapper,
                 metaSpuIntroductionMapper,
                 metaTagMapper,
-                metaTagSentenceRelationMapper);
+                metaTagSentenceRelationMapper,
+                metaGrowthCache);
         return metaGrowthRepository;
     }
 }
