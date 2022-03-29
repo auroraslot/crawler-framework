@@ -29,18 +29,17 @@ public class MetaGrowthCache {
         }
 
         String redisKey = SENTENCE_CONTENT + DigestUtils.md5Hex(sentenceContent);
-        String metaSentenceContentJson = redisCache.get(redisKey);
-        if (StringUtils.isEmpty(metaSentenceContentJson)) {
+        String sentenceId = redisCache.get(redisKey);
+        if (StringUtils.isEmpty(sentenceId)) {
             return null;
         }
 
-        return JSON.parseObject(metaSentenceContentJson, MetaSentenceContentDO.class);
+        return MetaSentenceContentDO.builder().sentenceId(Long.parseLong(sentenceId)).build();
     }
 
     public void insert(MetaSentenceContentDO metaSentenceContentDO) {
         String redisKey = SENTENCE_CONTENT + DigestUtils.md5Hex(metaSentenceContentDO.getContent());
-        String metaSentenceContentJson = JSON.toJSONString(metaSentenceContentDO);
-        redisCache.set(redisKey, metaSentenceContentJson, -1);
+        redisCache.set(redisKey, metaSentenceContentDO.getSentenceId().toString(), -1);
     }
 
     public void batchInsert(Map<String, String> map) {

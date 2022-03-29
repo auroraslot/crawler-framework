@@ -204,42 +204,20 @@ public class MetaGrowthRepository {
     }
 
     public Map<String, String> queryMetaSentence() {
-        // 构造查询条件
         LambdaQueryWrapper<MetaSentenceContentDO> queryWrapper = Wrappers.lambdaQuery();
-        // 分页查询存放数据的总集合
-//        List<MetaSentenceContentDO> results = new ArrayList<>();
         Map<String, String> results = new HashMap<>();
-
-        int pageNum = 1;
-        // 设置每次查询的数据量，最大为1000
-        int pageSize = 10000;
-        Page<MetaSentenceContentDO> page = new Page<>(pageNum, pageSize);
-        // 查询第一页数据
-        Page<MetaSentenceContentDO> pageResult = metaSentenceContentMapper.selectPage(page, queryWrapper);
-
-        // 判断是否还有数据，还有数据则页码+1继续执行分页查询
-        List<MetaSentenceContentDO> batchResult = pageResult.getRecords();
-        while (batchResult.size() >= pageSize) {
-            putAll(results, batchResult);
-            pageNum += 1;
-            page.setCurrent(pageNum);
-            pageResult = metaSentenceContentMapper
-                    .selectPage(page, queryWrapper);
-            batchResult = pageResult.getRecords();
-            // 每次循环获取数据后，休眠20ms，避免对数据库造成太大压力
-//                Thread.sleep(20);
-        }
-
-        // 最后一组数据也放入结果集中
-        putAll(results, page.getRecords());
+        List<MetaSentenceContentDO> list = metaSentenceContentMapper.selectList(queryWrapper);
+        putAll(results, list);
         return results;
     }
 
 
     private void putAll(Map<String, String> results, List<MetaSentenceContentDO> batchResult) {
         Map<String, String> maps = batchResult.stream()
-                .collect(Collectors.toMap(meta -> SENTENCE_CONTENT + DigestUtils.md5Hex(meta.getContent()),
-                    JSON::toJSONString));
+                .collect(Collectors.toMap(
+                        meta -> SENTENCE_CONTENT + DigestUtils.md5Hex(meta.getContent()),
+                        meta -> String.valueOf(meta.getSentenceId()),
+                        (k1, k2) -> k1));
         results.putAll(maps);
     }
 }
