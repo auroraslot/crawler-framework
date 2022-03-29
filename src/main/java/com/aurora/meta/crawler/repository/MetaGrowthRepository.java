@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -49,40 +50,87 @@ public class MetaGrowthRepository {
     private MetaGrowthCache metaGrowthCache;
 
     public void insert(MetaAuthorDO metaAuthor) {
-        metaAuthorMapper.insert(metaAuthor);
+        try {
+            metaAuthorMapper.insert(metaAuthor);
+        } catch (Exception e) {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ignored) {
+                }
+                log.error("插入数据库失败, 尝试重新插入, 重试次数：{}, meta: {}, e", i, metaAuthor, e);
+                int count = metaAuthorMapper.insert(metaAuthor);
+                if (count != 0) {
+                    return;
+                }
+            }
+            log.error("重试插入数据库失败, meta: {}", metaAuthor);
+        }
     }
 
     public void insert(MetaAuthorIntroductionDO metaAuthorIntroduction) {
-        metaAuthorIntroductionMapper.insert(metaAuthorIntroduction);
+        try {
+            metaAuthorIntroductionMapper.insert(metaAuthorIntroduction);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaAuthorIntroduction, e);
+        }
     }
 
     public void insert(MetaCategoryDO metaCategory) {
-        metaCategoryMapper.insert(metaCategory);
+        try {
+            metaCategoryMapper.insert(metaCategory);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaCategory, e);
+        }
     }
 
     public void insert(MetaSentenceInfoDO metaSentenceInfo) {
-        metaSentenceInfoMapper.insert(metaSentenceInfo);
+        try {
+            metaSentenceInfoMapper.insert(metaSentenceInfo);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaSentenceInfo, e);
+        }
     }
 
     public void insert(MetaSentenceContentDO metaSentenceContent) {
         metaGrowthCache.insert(metaSentenceContent);
-        metaSentenceContentMapper.insert(metaSentenceContent);
+        try {
+            metaSentenceContentMapper.insert(metaSentenceContent);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaSentenceContent, e);
+        }
     }
 
     public void insert(MetaSpuInfoDO metaSpuInfo) {
-        metaSpuInfoMapper.insert(metaSpuInfo);
+        try {
+            metaSpuInfoMapper.insert(metaSpuInfo);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaSpuInfo, e);
+        }
     }
 
     public void insert(MetaSpuIntroductionDO metaSpuIntroduction) {
-        metaSpuIntroductionMapper.insert(metaSpuIntroduction);
+        try {
+            metaSpuIntroductionMapper.insert(metaSpuIntroduction);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaSpuIntroduction, e);
+        }
     }
 
     public void insert(MetaTagDO metaTag) {
-        metaTagMapper.insert(metaTag);
+        try {
+            metaTagMapper.insert(metaTag);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaTag, e);
+        }
     }
 
     public void insert(MetaTagSentenceRelationDO metaTagSentenceRelation) {
-        metaTagSentenceRelationMapper.insert(metaTagSentenceRelation);
+        try {
+            metaTagSentenceRelationMapper.insert(metaTagSentenceRelation);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaTagSentenceRelation, e);
+        }
     }
 
     public MetaSpuInfoDO querySpuInfo(String spuName) {

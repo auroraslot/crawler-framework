@@ -39,7 +39,11 @@ public class MetaGrowthCache {
 
     public void insert(MetaSentenceContentDO metaSentenceContentDO) {
         String redisKey = SENTENCE_CONTENT + DigestUtils.md5Hex(metaSentenceContentDO.getContent());
-        redisCache.set(redisKey, metaSentenceContentDO.getSentenceId().toString(), -1);
+        try {
+            redisCache.set(redisKey, metaSentenceContentDO.getSentenceId().toString(), -1);
+        } catch (Exception e) {
+            log.error("插入redis失败, meta: {}, e: {}", metaSentenceContentDO, e);
+        }
     }
 
     public void batchInsert(Map<String, String> map) {
