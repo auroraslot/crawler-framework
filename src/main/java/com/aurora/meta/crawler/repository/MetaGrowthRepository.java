@@ -125,6 +125,14 @@ public class MetaGrowthRepository {
         }
     }
 
+    public void insert(List<MetaTagSentenceRelationDO> metaTagSentenceRelationDOList) {
+        try {
+            metaTagSentenceRelationMapper.batchInsert(metaTagSentenceRelationDOList);
+        } catch (Exception e) {
+            log.error("插入数据库失败, meta: {}, e: {}", metaTagSentenceRelationDOList, e);
+        }
+    }
+
     public void insert(MetaTagSentenceRelationDO metaTagSentenceRelation) {
         try {
             metaTagSentenceRelationMapper.insert(metaTagSentenceRelation);
